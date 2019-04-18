@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="UEAssistantMobile.GradesPage">
+    <ListView x:Name="fieldListView" ItemsSource="{Binding FieldsOfStudy}" HasUnevenRows="true" BackgroundColor="White" VerticalOptions="CenterAndExpand" ItemTapped="OnFieldListItemTapped">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Source="{Binding IconSource}" HeightRequest="30" WidthRequest="30" Margin="10,0,10,0" />
+                            <Label Text="{Binding NameOfField}" TextColor="Black" FontAttributes="Bold" FontSize="Large" />
+                        </StackLayout>
+                        <StackLayout IsVisible="{Binding Visibility}">
+                            <!-- Editions ListView -->
+                            <ListView x:Name="editionListView" ItemsSource="{Binding Editions}" HasUnevenRows="true" ItemTapped="OnEditionListItemTapped">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <StackLayout>
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Image Source="{Binding IconSource}" HeightRequest="30" WidthRequest="30" Margin="30,0,10,0" />
+                                                    <Label Text="{Binding NameOfEdition}" TextColor="Black" FontAttributes="Bold" FontSize="Large" />
+                                                </StackLayout>
+                                                <StackLayout IsVisible="{Binding Visibility}">
+                                                    <!-- Semesters ListView -->
+                                                    <ListView x:Name="semesterListView" ItemsSource="{Binding Semesters}" HasUnevenRows="true" ItemTapped="OnSemesterListItemTapped">
+                                                        <ListView.ItemTemplate>
+                                                            <DataTemplate>
+                                                                <ViewCell>
+                                                                    <StackLayout>
+                                                                        <StackLayout Orientation="Horizontal">
+                                                                            <Image Source="{Binding IconSource}" HeightRequest="30" WidthRequest="30" Margin="50,0,10,0" />
+                                                                            <Label Text="{Binding NumberOfSemester}" TextColor="Black" FontAttributes="Bold" FontSize="Large" />
+                                                                        </StackLayout>
+                                                                        <StackLayout IsVisible="{Binding Visibility}">
+                                                                            <!-- Grades ListView -->
+                                                                            <ListView x:Name="gradeListView" ItemsSource="{Binding Grades}" HasUnevenRows="true" ItemTapped="OnGradeListItemTapped">
+                                                                                <ListView.ItemTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <ViewCell>
+                                                                                            <StackLayout>
+                                                                                                <StackLayout Orientation="Horizontal">
+                                                                                                    <Label Text="{Binding Subject}" TextColor="Black" FontSize="Medium" Margin="15" />
+                                                                                                    <Label Text="{Binding GradeValue}" HorizontalOptions="EndAndExpand" TextColor="Black" FontSize="Medium" Margin="15" />
+                                                                                                </StackLayout>
+                                                                                                <Grid IsVisible="{Binding Visibility}">
+                                                                                                    <Grid.RowDefinitions>
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                        <RowDefinition Height="Auto" />
+                                                                                                    </Grid.RowDefinitions>
+                                                                                                    <Grid.ColumnDefinitions>
+                                                                                                        <ColumnDefinition Width="Auto" />
+                                                                                                        <ColumnDefinition Width="*" />
+                                                                                                    </Grid.ColumnDefinitions>
+                                                                                                    <Label Text="Przedmiot: " Grid.Row="0" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="Typ przedmiotu: " Grid.Row="1" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="Ocena: " Grid.Row="2" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="ECTS: " Grid.Row="3" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="Data wystawienia: " Grid.Row="4" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="Numer terminu: " Grid.Row="5" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="Wystawiający: " Grid.Row="6" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="Typ zaliczenia: " Grid.Row="7" Grid.Column="0" TextColor="Black" />
+                                                                                                    <Label Text="{Binding Subject}" Grid.Row="0" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding TypeOfSubject}" Grid.Row="1" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding GradeValue}" Grid.Row="2" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding Ects}" Grid.Row="3" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding DateOfGrade}" Grid.Row="4" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding NumberOfTerm}" Grid.Row="5" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding Teacher}" Grid.Row="6" Grid.Column="1" />
+                                                                                                    <Label Text="{Binding TypeOfPass}" Grid.Row="7" Grid.Column="1" />
+                                                                                                </Grid>
+                                                                                            </StackLayout>
+                                                                                        </ViewCell>
+                                                                                    </DataTemplate>
+                                                                                </ListView.ItemTemplate>
+                                                                            </ListView>
+                                                                        </StackLayout>
+                                                                    </StackLayout>
+                                                                </ViewCell>
+                                                            </DataTemplate>
+                                                        </ListView.ItemTemplate>
+                                                    </ListView>
+                                                </StackLayout>
+                                            </StackLayout>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </StackLayout>
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

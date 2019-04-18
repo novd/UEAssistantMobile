@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="UEAssistantMobile.MainPage">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Main Menu">
+            <ContentPage.Content>
+                <StackLayout BackgroundColor="White">
+                    <ListView x:Name="menuListView" RowHeight="100" ItemTapped="Handle_ItemTapped">
+                        <ListView.Header>
+                            <Image Source="logo.png" HeightRequest="150" HorizontalOptions="FillAndExpand" />
+                        </ListView.Header>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout Orientation="Horizontal">
+                                        <Image Source="{Binding ElementImageSource}" WidthRequest="50" HeightRequest="50" Margin="20,0,20,0" />
+                                        <Label Text="{Binding ElementName}" TextColor="Black" FontSize="Large" FontAttributes="Bold" VerticalOptions="Center" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ContentPage.Content>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <ContentPage>
+            <StackLayout>
+            </StackLayout>
+        </ContentPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>
