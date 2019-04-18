@@ -139,6 +139,45 @@ namespace UEAssistantMobile
 
         }
 
+        public async Task DownloadScheduleFile(string filepath)
+        {
+            var dateFrom = DateTime.Now.ToString("yyyy-MM-dd");
+            var dateTo = dateFrom; // there is no difference in value of these variables, but orginal GET method sends current date
+
+            var scheduleDownloadAddress = "https://e-uczelnia.ue.katowice.pl/wsrest/rest/raporty/custom/raport?jasperName=wydrukPZ_wskazana_grupaWU_v2.jasper&outputName=Plany&raportType=pdf&typRaportu=pdf" +
+                $"&data_od={dateFrom}" +
+                $"&data_do={dateTo}" +
+                $"&id_do_raportu={((JArray)await GetScheduleInfo())[0]["_SYS_NW_ID"]}" +
+                "&locale=pl";
+
+            var fileResponse = await Client.GetAsync(scheduleDownloadAddress);
+            fileResponse.EnsureSuccessStatusCode();
+            var responseStream = await fileResponse.Content.ReadAsStreamAsync();
+
+
+            using (var fileStream = new FileStream(filepath, FileMode.Create, FileAccess.Write, FileShare.None))
+            {
+                await responseStream.CopyToAsync(fileStream);
+            }
+
+        }
+
+        private async Task<JToken> GetScheduleInfo()
+        {
+            var timestamp = ((DateTimeOffset)DateTime.UtcNow).ToUnixTimeMilliseconds();
+            var page = 1; //default value
+            var start = 0; //default value
+            var limit = 10; //default value
+            var scheduleInfoAddress = $"/wsrest/rest/raportyIndywidualne/" +
+                                      $"dane?_dc={timestamp}" +
+                                      $"&page={page}" +
+                                      $"&start={start}" +
+                                      $"&limit={limit}";
+            var jsonResponse = JObject.Parse(await Client.GetAsync(scheduleInfoAddress).Result.Content.ReadAsStringAsync());
+
+            return jsonResponse["result"];
+        }
+
         private JToken PostJson(string address, string jsonAsString, bool needToAuthenticate)
         {
             if (needToAuthenticate)
