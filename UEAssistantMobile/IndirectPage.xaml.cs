@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using UEAssistantMobile.ViewModels; 
+using UEAssistantMobile.ViewModels;
 using Xamarin.Forms;
-
+using Xamarin.Forms.PlatformConfiguration;
 
 namespace UEAssistantMobile
 {
@@ -35,13 +36,15 @@ namespace UEAssistantMobile
 
             if (await SignInAsync(login, password))
             {
-                viewModel.InfoText = "Zalogowano poprawnie! \n\tPobieram oceny...";
+                viewModel.InfoText = "Zalogowano poprawnie! \n\t\tPobieram oceny...";
                 var grades = await GetGradesAsync();
-                viewModel.InfoText = "Oceny pobrane!";
+                viewModel.InfoText = "Aktualizuje plan...";
+                var localPath = await DownloadScheduleAsync("schedule.pdf");
+                viewModel.InfoText = "Wszystko gotowe!";
                 rotationThread.Abort();
                 viewModel.RotationEffect = 0;
                 await Task.Run(() => GuiEffector.OpacityMagicToMin(viewModel, 0.005f, 1, false));
-                await Navigation.PushModalAsync(new MainPage(grades));
+                await Navigation.PushModalAsync(new MainPage(grades, localPath));
             }
 
             else
@@ -50,16 +53,17 @@ namespace UEAssistantMobile
                 rotationThread.Abort();
                 viewModel.RotationEffect = 0;
             }
-                
+
         }
 
         async Task LogoRotate()
         {
-            await Task.Run(() =>GuiEffector.OpacityMagicToMax(viewModel, 0.005f, 1, false));
-            Task.Run(() => {
+            await Task.Run(() => GuiEffector.OpacityMagicToMax(viewModel, 0.005f, 1, false));
+            Task.Run(() =>
+            {
                 rotationThread = Thread.CurrentThread;
                 GuiEffector.RotationMagic(viewModel, 0.6f, 1, 100, 1000, false);
-                });
+            });
 
         }
 
@@ -76,12 +80,23 @@ namespace UEAssistantMobile
             return await requestManager.GetGradesAsync(null);
         }
 
-        bool SignIn(string login, string password)
+        async Task<string> DownloadScheduleAsync(string filename)
         {
-            viewModel.InfoText = "Rozpoczynam logowanie";
-            RequestManager requestManager = new RequestManager(login, password);
-            viewModel.InfoText = "Trwa logowanie...";
-            return requestManager.SignIn();
+            string fullpath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), filename);
+
+            if (File.Exists(fullpath))
+                File.Delete(fullpath);
+
+            await requestManager.DownloadScheduleFile(fullpath);
+            return fullpath;
         }
+
+    bool SignIn(string login, string password)
+    {
+        viewModel.InfoText = "Rozpoczynam logowanie";
+        RequestManager requestManager = new RequestManager(login, password);
+        viewModel.InfoText = "Trwa logowanie...";
+        return requestManager.SignIn();
     }
+}
 }

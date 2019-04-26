@@ -5,7 +5,10 @@ using UEAssistantMobile.ViewModels;
 using Xamarin.Forms;
 
 /*
-TODO: Create Grades view and bind with GradeViewModel
+TODO:   -Move Schedule feature to this project
+        -Create SchedulePage
+        -Plan to ExpandableListView for schedule with given parameters (eg schedule for next day) 
+        -Create ExpandableListView for schedule
     */
 namespace UEAssistantMobile
 {
@@ -13,11 +16,14 @@ namespace UEAssistantMobile
     {
         public List<MenuViewModel> MenuElements { get; set; }
         private List<Grade> Grades;
-        public MainPage(List<Grade> grades)
+        private string localPath;
+        public MainPage(List<Grade> grades, string localPath)
         {
             InitializeComponent();
 
             Grades = grades;
+            this.localPath = localPath;
+
             MenuElements = new List<MenuViewModel> {
                 new MenuViewModel {Id = 1, ElementImageSource="gradeIcon.png", ElementName="Oceny" },
                 new MenuViewModel {Id = 2, ElementImageSource="planIcon.png", ElementName="Plan zajęć" }
@@ -38,7 +44,7 @@ namespace UEAssistantMobile
                     break;
 
                 case 2:
-                    Detail = new NavigationPage();
+                    Detail = new NavigationPage(new SchedulePage(localPath));
                     HideMasterPage();
                     break;
                         

@@ -1,0 +1,10 @@
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/UEAssistantMobile.csprojAssemblyReference.cache
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/App.xaml.g.cs
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/GradesPage.xaml.g.cs
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/IndirectPage.xaml.g.cs
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/LoginPage.xaml.g.cs
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/MainPage.xaml.g.cs
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/SchedulePage.xaml.g.cs
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/UEAssistantMobile.csproj.CoreCompileInputs.cache
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/UEAssistantMobile.AssemblyInfoInputs.cache
+/Users/danielnowak/Desktop/xamarin projects/UEAssistantMobile/UEAssistantMobile/obj/Debug/netstandard1.6/UEAssistantMobile.AssemblyInfo.cs
