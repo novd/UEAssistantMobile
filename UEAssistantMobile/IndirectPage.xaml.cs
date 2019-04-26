@@ -17,6 +17,7 @@ namespace UEAssistantMobile
         private string password;
 
         Thread rotationThread;
+        bool isLogoRotating;
         RequestManager requestManager;
 
         public IndirectPage(string login, string password)
@@ -41,22 +42,20 @@ namespace UEAssistantMobile
                 viewModel.InfoText = "Aktualizuje plan...";
                 var localPath = await DownloadScheduleAsync("schedule.pdf");
                 viewModel.InfoText = "Wszystko gotowe!";
-                rotationThread.Abort();
-                viewModel.RotationEffect = 0;
-                await Task.Run(() => GuiEffector.OpacityMagicToMin(viewModel, 0.005f, 1, false));
+                isLogoRotating = false;
+                await pageLayout.FadeTo(0, 1500, Easing.Linear);
                 await Navigation.PushModalAsync(new MainPage(grades, localPath));
             }
 
             else
             {
                 viewModel.InfoText = "Wystąpił problem \n\t\t z logowaniem";
-                rotationThread.Abort();
-                viewModel.RotationEffect = 0;
+                isLogoRotating = false;
             }
 
         }
 
-        async Task LogoRotate()
+        async Task LogoRotatev1()
         {
             await Task.Run(() => GuiEffector.OpacityMagicToMax(viewModel, 0.005f, 1, false));
             Task.Run(() =>
@@ -65,6 +64,22 @@ namespace UEAssistantMobile
                 GuiEffector.RotationMagic(viewModel, 0.6f, 1, 100, 1000, false);
             });
 
+        }
+
+        async Task LogoRotate()
+        {
+            await pageLayout.FadeTo(1, 1500, Easing.Linear);
+            isLogoRotating = true;
+            await Task.Run(async () =>
+            {
+                rotationThread = Thread.CurrentThread;
+                while (isLogoRotating)
+                {   
+                    await logoImg.RotateTo(360, 1500, Easing.Linear);
+                    logoImg.Rotation = 0;
+                    Thread.Sleep(300);
+                }
+            });
         }
 
         async Task<bool> SignInAsync(string login, string password)

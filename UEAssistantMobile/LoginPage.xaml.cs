@@ -22,7 +22,7 @@ namespace UEAssistantMobile
 
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            await Task.Run(()=>GuiEffector.OpacityMagicToMin(viewModel, 0.005f, 1, false));
+            await pageLayout.FadeTo(0, 1500, Easing.Linear);
             await Navigation.PushAsync(new IndirectPage(loginEntry.Text, passwordEntry.Text));
         }
     }
