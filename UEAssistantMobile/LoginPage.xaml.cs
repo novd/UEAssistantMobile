@@ -13,11 +13,9 @@ namespace UEAssistantMobile
     [DesignTimeVisible(true)]
     public partial class LoginPage : ContentPage
     {
-        LoginViewModel viewModel;
         public LoginPage()
         {
             InitializeComponent();
-            this.BindingContext = viewModel = new LoginViewModel();
         }
 
         async void OnLoginButtonClicked(object sender, EventArgs e)

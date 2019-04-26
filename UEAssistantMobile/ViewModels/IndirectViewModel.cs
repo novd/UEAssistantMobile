@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace UEAssistantMobile.ViewModels
 {
-    public class IndirectViewModel : IEffectable, INotifyPropertyChanged
+    public class IndirectViewModel : INotifyPropertyChanged
     {
         float opacity = 1;
         public float OpacityEffect
@@ -39,7 +39,6 @@ namespace UEAssistantMobile.ViewModels
                 OnPropertyChanged("InfoText");
             }
         }
-        public Color ColorEffect { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         #region PropertyChanded
         public event PropertyChangedEventHandler PropertyChanged;

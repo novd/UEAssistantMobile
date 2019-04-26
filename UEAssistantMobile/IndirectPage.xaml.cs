@@ -55,16 +55,6 @@ namespace UEAssistantMobile
 
         }
 
-        async Task LogoRotatev1()
-        {
-            await Task.Run(() => GuiEffector.OpacityMagicToMax(viewModel, 0.005f, 1, false));
-            Task.Run(() =>
-            {
-                rotationThread = Thread.CurrentThread;
-                GuiEffector.RotationMagic(viewModel, 0.6f, 1, 100, 1000, false);
-            });
-
-        }
 
         async Task LogoRotate()
         {
@@ -106,12 +96,5 @@ namespace UEAssistantMobile
             return fullpath;
         }
 
-    bool SignIn(string login, string password)
-    {
-        viewModel.InfoText = "Rozpoczynam logowanie";
-        RequestManager requestManager = new RequestManager(login, password);
-        viewModel.InfoText = "Trwa logowanie...";
-        return requestManager.SignIn();
-    }
 }
 }

@@ -17,8 +17,6 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.2" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GuiEffects\" />
-    <Folder Include="Graphics\" />
     <Folder Include="ViewModels\" />
     <Folder Include="UEAssistant\" />
     <Folder Include="Models\" />
